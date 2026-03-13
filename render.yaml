@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: certificate-generator
+    env: docker
+    plan: free
+    autoDeploy: true
