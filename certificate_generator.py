@@ -88,6 +88,15 @@ def _safe_filename(s: str) -> str:
     return "".join(ch if ch.isalnum() or ch in ("_", "-", " ", ".", "(", ")", "[", "]") else "_" for ch in s).strip()
 
 
+def _unique_filename_base(base: str, used: dict[str, int], fallback: str) -> str:
+    normalized = _safe_filename(base) or fallback
+    count = used.get(normalized, 0) + 1
+    used[normalized] = count
+    if count == 1:
+        return normalized
+    return f"{normalized}_{count}"
+
+
 def main() -> int:
     p = argparse.ArgumentParser(
         description="Generate certificates/awards from an image template + CSV."
@@ -173,11 +182,12 @@ def main() -> int:
     template_img = Image.open(template_path)
 
     rendered_images_rgb: list[Image.Image] = []
+    used_filenames: dict[str, int] = {}
     for i, row in enumerate(rows, start=1):
         img = _render_one(template_img, row, specs, args.font)
 
         name_for_file = row.get(args.filename_field, f"row_{i}")
-        base = _safe_filename(name_for_file) or f"row_{i}"
+        base = _unique_filename_base(name_for_file, used_filenames, f"row_{i}")
 
         if args.png:
             out_png = out_dir / f"{base}.png"
