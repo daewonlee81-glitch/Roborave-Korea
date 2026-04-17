@@ -22,42 +22,6 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## 문서 제작용 웹앱 (기준 DOCX 분석 + 요약서 기반 생성)
-
-`document_studio.py`는 기준이 되는 `DOCX` 문서를 먼저 분석한 뒤, 요약서를 업로드하면 같은 흐름의 새 문서를 만들어 주는 웹앱입니다.
-
-- 기준 문서의 섹션 순서, 표 수, 사진 위치 분석
-- 요약서(`txt`, `md`, `docx`) 업로드
-- 사진이 들어갈 자리는 `[사진 추가 예정]` 공란으로 생성
-- `DOCX`, `HWPX` 다운로드 지원
-
-### 실행
-
-```bash
-cd certificate-generator
-source .venv/bin/activate
-pip install -r requirements.txt
-streamlit run document_studio.py
-```
-
-### 요약서 예시
-
-```text
-작품명: 스마트 냉각 쉼터
-출품학생: 홍길동
-지도교원: 김선생
-출품분야: 생활과학
-날짜: 2026. 3. 23.
-
-발명 동기
-무더운 날 대기 공간에서 느낀 불편함이 시작점이었다.
-
-문제 해결
-센서와 팬 제어를 결합해 필요할 때만 작동하도록 설계했다.
-```
-
-> 참고: 이 앱은 한글에서 바로 열 수 있는 `HWPX`를 생성합니다. 전통적인 `.hwp` 5.x 바이너리 저장은 별도 한글 프로그램 연동이 필요합니다.
-
 ## 외부 접속용 배포
 
 이 프로젝트는 이제 **Docker/Render 배포 가능 상태**입니다. 가장 쉬운 방법은 GitHub에 올린 뒤 Render로 배포하는 방식입니다.
